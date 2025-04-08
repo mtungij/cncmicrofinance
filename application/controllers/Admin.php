@@ -8872,7 +8872,7 @@ public function update_customer_details($customer_id){
 	//public function sendsms(){f
 	//$phone = '255628323760';
 	//$massage = 'mapenzi yanauwa';
-	$api_key = 'BQAwQsFs9p.0fs1NAY.i/K0KZ7';
+	$api_key = 'Jm208bBtQsCkl2H0';
 	//$api_key = 'qFzd89PXu1e/DuwbwxOE5uUBn6';
 	//$curl = curl_init();
   $ch = curl_init();

@@ -1710,7 +1710,7 @@ public function customer(){
   {
     //$phone = '0753871034';
     //$sms = 'mapenzi yanauwa';
-    $api_key = 'BQAwQsFs9p.0fs1NAY.i/K0KZ7';
+    $api_key = '	Jm208bBtQsCkl2H0';
     //$api_key = 'qFzd89PXu1e/DuwbwxOE5uUBn6';
     //$curl = curl_init();
     $ch = curl_init();
