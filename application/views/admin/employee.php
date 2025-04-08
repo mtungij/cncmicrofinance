@@ -94,7 +94,7 @@
 
 								<div class="col-lg-4 form-group-sub">
     <label class="form-control-label">*Password:</label>
-    <input type="password" name="password" placeholder="Password" autocomplete="off" class="form-control input-sm" required>
+    <input type="password" name="password" placeholder="password" autocomplete="off" class="form-control input-sm" required>
 </div>
 
 <div class="col-lg-4 form-group-sub">
@@ -139,7 +139,7 @@
 									<label  class="form-control-label">*Account Number:</label>
 							<input type="text" name="account_no" placeholder="Account Number" autocomplete="off" class="form-control input-sm" required>
 								</div>
-						<input type="hidden" name="password" value="1234">
+						
 
 							</div>
 						</div>
