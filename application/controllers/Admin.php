@@ -689,10 +689,10 @@ $sqldata="UPDATE `tbl_ac_company` SET `comp_balance`= '$total_remain' WHERE  `tr
 		if ($this->form_validation->run()) {
 			$data = $this->input->post();
 
-			//    echo "<pre>";
-			//   print_r($data);
-			//   echo "</pre>";
-			//      exit();
+			   echo "<pre>";
+			  print_r($data);
+			  echo "</pre>";
+			     exit();
 	
 			unset($data['confirm_password']);
 			// Use password_hash() for secure password hashing
