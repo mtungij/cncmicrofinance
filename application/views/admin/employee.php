@@ -91,6 +91,18 @@
 								<option value="female">Female</option>
 							 </select>
 								</div>
+
+								<div class="col-lg-4 form-group-sub">
+    <label class="form-control-label">*Password:</label>
+    <input type="password" name="password" placeholder="Password" autocomplete="off" class="form-control input-sm" required>
+</div>
+
+<div class="col-lg-4 form-group-sub">
+    <label class="form-control-label">*Confirm Password:</label>
+    <input type="password" name="confirm_password" placeholder="Confirm Password" autocomplete="off" class="form-control input-sm" required>
+</div>
+
+
 								<div class="col-lg-3 form-group-sub">
 									<label  class="form-control-label">*Salary Amount:</label>
 								<input type="number" name="salary" placeholder="Salary Amount" autocomplete="off" class="form-control input-sm" required>
@@ -332,15 +344,7 @@
 								</select>	
 								</div>
 
-								<div class="col-lg-4 form-group-sub">
-    <label class="form-control-label">*Password:</label>
-    <input type="password" name="password" placeholder="Password" autocomplete="off" class="form-control input-sm" required>
-</div>
 
-<div class="col-lg-4 form-group-sub">
-    <label class="form-control-label">*Confirm Password:</label>
-    <input type="password" name="confirm_password" placeholder="Confirm Password" autocomplete="off" class="form-control input-sm" required>
-</div>
 
 
 								<div class="col-lg-4 form-group-sub">
