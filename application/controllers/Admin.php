@@ -606,70 +606,107 @@ $sqldata="UPDATE `tbl_ac_company` SET `comp_balance`= '$total_remain' WHERE  `tr
 		$this->load->view('admin/employee',['blanch'=>$blanch,'position'=>$position,'system_links'=>$system_links,'employee'=>$employee]);
 	}
 
+	// public function creat_employee(){
+	// 	$this->form_validation->set_rules('comp_id', 'Company', 'required');
+	// 	$this->form_validation->set_rules('blanch_id', 'Branch', 'required');
+	// 	$this->form_validation->set_rules('ac_status', 'Account status', 'required');
+	// 	$this->form_validation->set_rules('empl_name', 'Employee Name', 'required');
+	// 	$this->form_validation->set_rules('empl_no', 'Phone Number', 'required');
+	// 	$this->form_validation->set_rules('empl_email', 'Email', 'required|valid_email');
+	// 	$this->form_validation->set_rules('position_id', 'Position', 'required');
+	// 	$this->form_validation->set_rules('salary', 'Salary', 'required|numeric');
+	// 	$this->form_validation->set_rules('pays', 'Pays', 'required');
+	// 	$this->form_validation->set_rules('username', 'Username', 'required|is_unique[tbl_employee.username]');
+	// 	$this->form_validation->set_rules('pay_nssf', 'Pay NSSF', 'required');
+	// 	$this->form_validation->set_rules('bank_account', 'Bank Account', 'required');
+	// 	$this->form_validation->set_rules('account_no', 'Account Number', 'required');
+	// 	$this->form_validation->set_rules('password', 'Password', 'required|min_length[4]');
+	// 	$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
+	
+	// 	if ($this->form_validation->run()) {
+	// 		$data = $this->input->post();
+    //        $permissions = $data['permissions']; // Store permissions separately
+    //        unset($data['permissions']); // Remove permissions from main data array
+	// 		$data['password'] = sha1($this->input->post('password'));
+	// 		$this->load->model('queries');
+	// 		// Start Transaction for Consistency
+	// 		$this->db->trans_start();
+	
+	// 		// Insert Employee
+	// 		$employee_id = $this->queries->insert_employee($data);
+	
+	// 		if ($employee_id) {
+	// 			// Insert Permissions if Available
+	// 			$permissions = $this->input->post('permissions');
+	// 			if (!empty($permissions)) {
+	// 				foreach ($permissions as $permission) {
+	// 					$this->queries->insert_permission([
+	// 						'employee_id' => $employee_id,
+	// 						'link_id' => $permission
+	// 					]);
+	// 				}
+	// 			}
+	// 		}
+	
+	// 		// Complete Transaction
+	// 		$this->db->trans_complete();
+	
+	// 		if ($this->db->trans_status() === FALSE) {
+	// 			// If transaction fails, redirect with an error
+	// 			$this->session->set_flashdata('error', 'Failed to create employee. Try again.');
+	// 			return redirect('admin/create_employee');
+	// 		}
+	
+	// 		$this->session->set_flashdata('success', 'Employee created successfully.');
+	// 		return redirect('admin/employee');
+	// 	}
+	
+	// 	$this->employee();
+	// }
+
 	public function create_employee(){
-		$this->form_validation->set_rules('comp_id', 'Company', 'required');
-		$this->form_validation->set_rules('blanch_id', 'Branch', 'required');
+		// Set form validation rules
+		$this->form_validation->set_rules('comp_id', 'company', 'required');
+		$this->form_validation->set_rules('blanch_id', 'blanch', 'required');
 		$this->form_validation->set_rules('ac_status', 'Account status', 'required');
-		$this->form_validation->set_rules('empl_name', 'Employee Name', 'required');
-		$this->form_validation->set_rules('empl_no', 'Phone Number', 'required');
-		$this->form_validation->set_rules('empl_email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('empl_name', 'Employee name', 'required');
+		$this->form_validation->set_rules('empl_no', 'Phone number', 'required');
+		$this->form_validation->set_rules('empl_email', 'Email', 'required');
 		$this->form_validation->set_rules('position_id', 'Position', 'required');
-		$this->form_validation->set_rules('salary', 'Salary', 'required|numeric');
+		$this->form_validation->set_rules('salary', 'Salary', 'required');
 		$this->form_validation->set_rules('pays', 'Pays', 'required');
-		$this->form_validation->set_rules('username', 'Username', 'required|is_unique[tbl_employee.username]');
+		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('pay_nssf', 'Pay NSSF', 'required');
-		$this->form_validation->set_rules('bank_account', 'Bank Account', 'required');
-		$this->form_validation->set_rules('account_no', 'Account Number', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[4]');
+		$this->form_validation->set_rules('bank_account', 'Bank account', 'required');
+		$this->form_validation->set_rules('account_no', 'Account no', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		
+		// Add validation for confirm password
+		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');
+	
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
 	
 		if ($this->form_validation->run()) {
 			$data = $this->input->post();
-           $permissions = $data['permissions']; // Store permissions separately
-           unset($data['permissions']); // Remove permissions from main data array
-			$data['password'] = sha1($this->input->post('password'));
+	
+			// Use password_hash() for secure password hashing
+			$data['password'] = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
+	
+			// Load the model and attempt to insert the employee data
 			$this->load->model('queries');
-			// Start Transaction for Consistency
-			$this->db->trans_start();
-	
-			// Insert Employee
-			$employee_id = $this->queries->insert_employee($data);
-	
-			// if ($employee_id) {
-			// 	// Insert Permissions if Available
-			// 	$permissions = $this->input->post('permissions');
-			// 	if (!empty($permissions)) {
-			// 		foreach ($permissions as $permission) {
-			// 			$this->queries->insert_permission([
-			// 				'employee_id' => $employee_id,
-			// 				'link_id' => $permission
-			// 			]);
-			// 		}
-			// 	}
-			// }
-	
-			// Complete Transaction
-			$this->db->trans_complete();
-	
-			if ($this->db->trans_status() === FALSE) {
-				// If transaction fails, redirect with an error
-				$this->session->set_flashdata('error', 'Failed to create employee. Try again.');
-				return redirect('admin/create_employee');
+			if ($this->queries->insert_employee($data)) {
+				$this->session->set_flashdata('message', 'Employee registered successfully. Default password: 1234');
+			} else {
+				$this->session->set_flashdata('error', 'Failed to register employee');
 			}
 	
-			$this->session->set_flashdata('success', 'Employee created successfully.');
 			return redirect('admin/employee');
 		}
 	
+		// Reload employee page if form validation fails
 		$this->employee();
 	}
-
-	public function all_customer_sms()
-	{
-		
-
-	$this->load->view('admin/all_members');
-	}
+	
 
 	public function create_sms()
 	{
