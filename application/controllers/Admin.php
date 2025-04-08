@@ -665,51 +665,36 @@ $sqldata="UPDATE `tbl_ac_company` SET `comp_balance`= '$total_remain' WHERE  `tr
 	// }
 
 	public function create_employee(){
-		// Set form validation rules
-		$this->form_validation->set_rules('comp_id', 'company', 'required');
-		$this->form_validation->set_rules('blanch_id', 'blanch', 'required');
-		$this->form_validation->set_rules('ac_status', 'Account status', 'required');
-		$this->form_validation->set_rules('empl_name', 'Employee name', 'required');
-		$this->form_validation->set_rules('empl_no', 'Phone number', 'required');
-		$this->form_validation->set_rules('empl_email', 'Email', 'required');
-		$this->form_validation->set_rules('position_id', 'Position', 'required');
-		$this->form_validation->set_rules('salary', 'Salary', 'required');
-		$this->form_validation->set_rules('pays', 'Pays', 'required');
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('pay_nssf', 'Pay NSSF', 'required');
-		$this->form_validation->set_rules('bank_account', 'Bank account', 'required');
-		$this->form_validation->set_rules('account_no', 'Account no', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
-		
-		// Add validation for confirm password
-		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');
-	
-		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
-	
+		$this->form_validation->set_rules('comp_id','company','required');
+		$this->form_validation->set_rules('blanch_id','blanch','required');
+		$this->form_validation->set_rules('ac_status','Acount status','required');
+		$this->form_validation->set_rules('empl_name','Empl name','required');
+		$this->form_validation->set_rules('empl_no','phone number','required');
+		$this->form_validation->set_rules('empl_email','Email','required');
+		$this->form_validation->set_rules('position_id','position','required');
+		$this->form_validation->set_rules('salary','salary','required');
+		$this->form_validation->set_rules('pays','pays','required');
+		$this->form_validation->set_rules('username','username','required');
+		$this->form_validation->set_rules('pay_nssf','pay nssf','required');
+		$this->form_validation->set_rules('bank_account','bank account','required');
+		$this->form_validation->set_rules('account_no','account no','required');
+		$this->form_validation->set_rules('password','password','required');
+		$this->form_validation->set_error_delimiters('<div class="text-danger">','</div>');
 		if ($this->form_validation->run()) {
 			$data = $this->input->post();
-
-			//    echo "<pre>";
-			//   print_r($data);
-			//   echo "</pre>";
-			//      exit();
-	
-			unset($data['confirm_password']);
-			// Use password_hash() for secure password hashing
-			$data['password'] = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
-	
-			// Load the model and attempt to insert the employee data
+			$data['password'] = sha1($this->input->post('password'));
+			  //  echo "<pre>";
+			  // print_r($data);
+			  // echo "</pre>";
+			  //    exit();
 			$this->load->model('queries');
 			if ($this->queries->insert_employee($data)) {
-				$this->session->set_flashdata('message', 'Employee registered successfully. Default password: 1234');
-			} else {
-				$this->session->set_flashdata('error', 'Failed to register employee');
+				 $this->session->set_flashdata('massage','Eployee Registered successfully Password = 1234');
+			}else{
+				$this->session->set_flashdata('error','Failed');
 			}
-	
 			return redirect('admin/employee');
 		}
-	
-		// Reload employee page if form validation fails
 		$this->employee();
 	}
 	
