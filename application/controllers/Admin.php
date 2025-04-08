@@ -635,18 +635,18 @@ $sqldata="UPDATE `tbl_ac_company` SET `comp_balance`= '$total_remain' WHERE  `tr
 			// Insert Employee
 			$employee_id = $this->queries->insert_employee($data);
 	
-			if ($employee_id) {
-				// Insert Permissions if Available
-				$permissions = $this->input->post('permissions');
-				if (!empty($permissions)) {
-					foreach ($permissions as $permission) {
-						$this->queries->insert_permission([
-							'employee_id' => $employee_id,
-							'link_id' => $permission
-						]);
-					}
-				}
-			}
+			// if ($employee_id) {
+			// 	// Insert Permissions if Available
+			// 	$permissions = $this->input->post('permissions');
+			// 	if (!empty($permissions)) {
+			// 		foreach ($permissions as $permission) {
+			// 			$this->queries->insert_permission([
+			// 				'employee_id' => $employee_id,
+			// 				'link_id' => $permission
+			// 			]);
+			// 		}
+			// 	}
+			// }
 	
 			// Complete Transaction
 			$this->db->trans_complete();
